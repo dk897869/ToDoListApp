@@ -1,18 +1,43 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import TodoListScreen from './screens/ToDoListScreen';
+import { View, StyleSheet, Text } from 'react-native';
+import { TapGestureHandler, State } from 'react-native-gesture-handler';
 
-const Stack = createStackNavigator();
+const GestureHandlerExample = () => {
+  const handleGestureEvent = event => {
+    if (event.nativeEvent.state === State.ACTIVE) {
+      // Handle tap gesture
+      console.log('Tap gesture detected!');
+    }
+  };
 
-const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="TodoList" component={TodoListScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <TapGestureHandler onHandlerStateChange={handleGestureEvent}>
+        <View style={styles.box}>
+          <Text style={styles.text}>Tap Me</Text>
+        </View>
+      </TapGestureHandler>
+    </View>
   );
 };
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  box: {
+    width: 200,
+    height: 200,
+    backgroundColor: 'skyblue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
+
+export default GestureHandlerExample;
